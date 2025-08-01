@@ -1,0 +1,96 @@
+import java.util.*;
+import java.io.*;
+
+public class FixedSizeStack {
+    private int[] arr;       // Array to store stack elements
+    private int top;         // Index of the top element
+    private int capacity;    // Maximum size of the stack
+
+    /**
+     * Constructor to initialize the fixed-size stack.
+     * @param size The maximum capacity of the stack.
+     */
+    public FixedSizeStack(int size) {
+        this.capacity = size;
+        this.arr = new int[capacity];
+        this.top = -1; // -1 indicates an empty stack
+    }
+
+    /**
+     * Checks if the stack is empty.
+     * @return true if the stack is empty, false otherwise.
+     */
+    public boolean isEmpty() {
+        return top == -1;
+    }
+
+    /**
+     * Checks if the stack is full.
+     * @return true if the stack is full, false otherwise.
+     */
+    public boolean isFull() {
+        return top == capacity - 1;
+    }
+
+    /**
+     * Pushes an element onto the stack.
+     * @param element The element to be pushed.
+     */
+    public void push(int element) {
+        if (isFull()) {
+            System.out.println("Stack Overflow: Cannot push element " + element + ", stack is full.");
+            return;
+        }
+        arr[++top] = element;
+        System.out.println("Pushed: " + element);
+    }
+
+    /**
+     * Pops an element from the stack.
+     * @return The popped element, or -1 if the stack is empty.
+     */
+    public int pop() {
+        if (isEmpty()) {
+            System.out.println("Stack Underflow: Cannot pop, stack is empty.");
+            return -1; // Or throw an exception
+        }
+        int poppedElement = arr[top--];
+        System.out.println("Popped: " + poppedElement);
+        return poppedElement;
+    }
+
+    /**
+     * Returns the top element without removing it.
+     * @return The top element, or -1 if the stack is empty.
+     */
+    public int peek() {
+        if (isEmpty()) {
+            System.out.println("Stack is Empty: No element to peek.");
+            return -1; // Or throw an exception
+        }
+        return arr[top];
+    }
+    
+    
+    public static void main(String[] args)
+    {
+FixedSizeStack stack1 = new FixedSizeStack(3);
+
+
+        // Initialization of Stack
+        // using Generics
+
+        // pushing the elements
+        stack1.push(4);
+        stack1.push(678);
+        stack1.push(8);
+
+
+          // Printing the Stack Elements
+        System.out.println("popped element:"+ stack1.peek());
+        System.out.println("popped element:"+ stack1.pop());
+
+        
+        
+    }
+}
