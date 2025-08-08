@@ -1,0 +1,133 @@
+import java.util.Scanner;
+
+public class Main{
+    int SIZE = 5;
+    int items[] = new int[SIZE];
+    int front , rear;
+
+
+    public Main(int SIZE){
+        this.SIZE = SIZE;
+        items = new int[SIZE];
+        front = -1;
+        rear = -1;
+
+    }
+
+
+    public boolean isFull() {
+        return rear == SIZE - 1;
+    }
+
+    public boolean isEmpty() {
+        return front == -1;
+    }
+
+
+
+    public void Enqueue(int element){
+
+        if(isFull()){
+            System.out.println("The Queue is Full");
+        }
+        else 
+        {
+            if (front == -1) {  
+                front = 0;
+            }
+            rear++; 
+            items[rear] = element;
+            System.out.println(element + " enqueued to queue");
+        }
+
+    }
+
+
+
+
+    public void Dequeue(){
+        if(isEmpty()){
+            System.out.println("Cannot Dequeue from empty Queue");
+        }
+        else{
+            int dequeuedElement = items[front];
+            front++;
+            if (front > rear) {  // Reset queue when empty
+                front = rear = -1;
+            }
+            System.out.println(dequeuedElement + " dequeued from queue");
+        }
+        
+    }
+
+    public void Display(){
+        if(isEmpty()){
+            System.out.println("The Queue is Empty\n");
+        }
+        else{
+            System.out.println("The Elements of Queue are:");
+            for(int i = front ; i <= rear ; i++){
+                System.out.println(items[i] + "");
+            
+            
+            }
+                System.out.println("Front index: " + front);
+                System.out.println("Rear index: " + rear);
+
+        }
+    }
+
+
+
+    public static void main(String[]args){
+        int input;
+        Main q = new Main(5);
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.println("1 Enqueue");
+        System.out.println("2 Dequeue");
+        System.out.println("3 Display");
+        System.out.println("4 Exit");
+        
+        do{
+        System.out.println("Enter Operation : ");
+        input = scanner.nextInt();
+        
+        switch(input){
+            case 1:
+                System.out.println("Enter element to Enqueue: ");
+                int ele = scanner.nextInt();
+                q.Enqueue(ele);
+                break;
+                
+            case 2:
+                q.Dequeue();
+                break;
+            case 3:
+                q.Display();
+                break;
+            case 4:
+                System.out.println("Exiting the Program");
+                break;
+            default:
+                System.out.println("Invalid Try Again");
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+
+        
+        
+    }while (input != 4);
+        
+        scanner.close();
+        System.exit(0);
+}
+    
+}
