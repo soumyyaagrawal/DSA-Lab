@@ -1,0 +1,104 @@
+public class CircularQueue {
+    private int[] queueArray;
+    private int maxSize;
+    private int front;
+    private int rear;
+    private int currentSize; // To keep track of the number of elements
+
+    public CircularQueue(int size) {
+        maxSize = size;
+        queueArray = new int[maxSize];
+        front = -1;
+        rear = -1;
+        currentSize = 0;
+    }
+
+    public boolean isEmpty() {
+        return currentSize == 0;
+    }
+
+    public boolean isFull() {
+        return currentSize == maxSize;
+    }
+
+    public void enqueue(int item) {
+        if (isFull()) {
+            System.out.println("Queue is full. Cannot enqueue " + item);
+            return;
+        }
+
+        if (isEmpty()) {
+            front = 0;
+            rear = 0;
+        } else {
+            rear = (rear + 1) % maxSize; // Circular increment
+        }
+        queueArray[rear] = item;
+        currentSize++;
+        System.out.println("Enqueued: " + item);
+    }
+
+    public int dequeue() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty. Cannot dequeue.");
+            return -1; // Or throw an exception
+        }
+
+        int item = queueArray[front];
+        if (front == rear) { // Only one element in the queue
+            front = -1;
+            rear = -1;
+        } else {
+            front = (front + 1) % maxSize; // Circular increment
+        }
+        currentSize--;
+        System.out.println("Dequeued: " + item);
+        return item;
+    }
+
+    public int peek() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty. No element to peek.");
+            return -1; // Or throw an exception
+        }
+        return queueArray[front];
+    }
+
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty.");
+            return;
+        }
+
+        System.out.print("Circular Queue: ");
+        int i = front;
+        for (int count = 0; count < currentSize; count++) {
+            System.out.print(queueArray[i] + " ");
+            i = (i + 1) % maxSize;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        CircularQueue queue = new CircularQueue(5);
+
+        queue.enqueue(10);
+        queue.enqueue(20);
+        queue.enqueue(30);
+        queue.display();
+
+        queue.dequeue();
+        queue.display();
+
+        queue.enqueue(40);
+        queue.enqueue(50);
+        queue.enqueue(60); // This will show Queue is full
+        queue.display();
+
+        queue.dequeue();
+        queue.enqueue(70);
+        queue.display();
+
+        System.out.println("Peeked element: " + queue.peek());
+    }
+}
